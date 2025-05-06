@@ -56,6 +56,7 @@ const AppCalendar: React.FC<AppCalendarProps> = ({
         textDayFontSize: 16,
         textMonthFontSize: 18,
         textDayHeaderFontSize: 14,
+        
       }}
       
     />

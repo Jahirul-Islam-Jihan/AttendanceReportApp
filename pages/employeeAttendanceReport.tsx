@@ -48,6 +48,7 @@ export default function EmployeeAttandanceReport({ route }: any) {
         customStyles: {
           container: {
             backgroundColor: statusColors[status],
+            borderRadius:0
           },
           text: {
             color: "white",
