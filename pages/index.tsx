@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,18 +6,33 @@ import {
   TouchableOpacity,
   FlatList,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useQuery } from "@apollo/client";
 import { GET_USERS_WITH_POSTS } from "../API/queries";
 import ExampleCard from "../components/common/ExampleCard";
+import Loader from "../components/common/loader/Loader";
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
-  const { loading, error, data } = useQuery(GET_USERS_WITH_POSTS);
+  const { loading, error, data, refetch } = useQuery(GET_USERS_WITH_POSTS);
+  const [refreshing, setRefreshing] = useState(false);
 
-  if (loading) return <ActivityIndicator style={styles.center} />;
+  if (loading && !refreshing) return <Loader visible={true} />;
   if (error) return <Text style={styles.error}>Error: {error.message}</Text>;
+
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } catch (err) {
+      console.error("Refresh error:", err);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
 
   return (
     <View style={styles.container}>
@@ -30,12 +45,19 @@ export default function HomeScreen() {
           data={data.users.data}
           keyExtractor={(items) => items.id}
           contentContainerStyle={styles.cardListContent}
-
+          onRefresh={handleRefresh}
+          refreshing={refreshing}
           indicatorStyle="black"
           scrollsToTop
+          refreshControl={
+            <RefreshControl
+              onRefresh={handleRefresh}
+              tintColor="transparent" // remove spinner on iOS
+              refreshing={false} />
+          }
           renderItem={({ item }) => (
             <ExampleCard
-              name={item.name}
+              name={item.name}  
               userId={item.id}
               email={item.email}
               posts={item.posts.data}
@@ -48,6 +70,7 @@ export default function HomeScreen() {
             />
           )}
         />
+        {refreshing && <Loader visible={true} />}
       </View>
     </View>
   );
@@ -62,7 +85,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    marginTop:50,
+    marginTop: 50,
   },
   button: {
     fontSize: 20,

@@ -19,7 +19,7 @@ import designations from "../constants/Designation";
 import { LinearGradient } from "expo-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 
-const Attandance = ({}) => {
+const Attandance = ({ }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFilter, setSelectedFilter] = useState<"all" | "designation">(
     "all"
@@ -167,18 +167,18 @@ const Attandance = ({}) => {
                   />
                 ))}
               </Picker>
-              <TouchableOpacity
+              <View style={{flexDirection:"row"}}><TouchableOpacity
                 style={styles.modalButton}
                 onPress={filterByDesignation}
               >
                 <Text style={styles.modalButtonText}>Filter</Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.closeButton]}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Close</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.closeButton]}
+                  onPress={() => setModalVisible(false)}
+                >
+                  <Text style={styles.modalButtonText}>Close</Text>
+                </TouchableOpacity></View>
             </View>
           </View>
         </Modal>
@@ -329,9 +329,11 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
+    flexDirection:"row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
+    alignContent:"center"
   },
   modalContent: {
     backgroundColor: "white",
@@ -355,8 +357,8 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 20,
     elevation: 4,
-    height: 50,
-    width: 300,
+    height:60,
+    width: "100%",
   },
   closeButton: {
     backgroundColor: "#A0A0A0",
@@ -371,12 +373,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#0463CA",
     paddingVertical: 10,
     paddingHorizontal: 20,
-    borderRadius: 8,
+    borderRadius: 20,
     marginHorizontal: 10,
-    flex: 1,
     alignItems: "center",
-    height: 100,
-    width: 100,
   },
   employeeTotal: {
     flexDirection: "row",

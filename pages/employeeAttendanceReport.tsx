@@ -120,7 +120,7 @@ export default function EmployeeAttandanceReport({ route }: any) {
         textDepartment={{ color: "#FF5733" }}
         textDesignation={{ color: "#9c5cb4" }}
         textUserid={{ color: "black" }}
-        cardStyle={{ height: "17%" }}
+        cardStyle={{ height: "17%",marginTop:0 }}
       />
       <View
         style={{ height: "0.2%", width: "98%", backgroundColor: "#00416A" }}
@@ -179,7 +179,7 @@ export default function EmployeeAttandanceReport({ route }: any) {
           disableDates={["2025-05-10", "2025-05-11"]}
         />
       </View>
-      <View style={{ alignItems: "center", width: "100%" }}>
+      <View style={{ alignItems: "center", width: "100%", marginBottom:10, height:"100%" }}>
         {attendanceDetail ? (
           <View
             style={{
@@ -191,6 +191,7 @@ export default function EmployeeAttandanceReport({ route }: any) {
               shadowOffset: { width: 0, height: 1 },
               shadowRadius: 4,
               elevation: 2,
+              height:"100%" 
             }}
           >
             <Text

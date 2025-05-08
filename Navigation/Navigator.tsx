@@ -3,6 +3,7 @@ import GradientBackground from "../components/common/GradientBackground";
 import Attandance from "../pages/attendance";
 import EmployeeAttandanceReport from "../pages/employeeAttendanceReport";
 import Index from "../pages/index";
+import chatPage from "../pages/chatPage";
 import { NavigationContainer } from "@react-navigation/native";
 
 const Stack = createNativeStackNavigator();
@@ -10,8 +11,9 @@ const Stack = createNativeStackNavigator();
 export default function MainNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Main">
         <Stack.Screen name="Home" component={Index} />
+        <Stack.Screen name="Main" component={chatPage} />
         <Stack.Screen
           name="Attandance"
           component={Attandance}
